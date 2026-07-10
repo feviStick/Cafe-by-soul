@@ -1,0 +1,6 @@
+{
+  "name": "Cafe By Soul",
+  "description": "Rooftop café menu & reservation portal with a luxurious aesthetic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
