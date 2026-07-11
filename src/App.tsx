@@ -83,7 +83,7 @@ const DETAILED_MENU = [
     desc: "Rich espresso with lavender-steamed milk and organic local wildflower honey",
     price: "₹220",
     tags: ["Sweet", "Organic"],
-    img: "https://images.unsplash.com/photo-1570968915860-54d5c301fc9f?w=600&h=750&fit=crop&auto=format",
+    img: "/src/assets/lavender-honey-latte.svg",
   },
   {
     category: "Cold Brew & Iced",
@@ -169,6 +169,10 @@ export default function App() {
       }
       return [...prevCart, { name: item.name, price: item.price, quantity: 1, img: item.img }];
     });
+  };
+
+  const handleAddToCart = (item: { name: string; price: string; img: string }) => {
+    addToCart(item);
   };
 
   const updateCartQty = (name: string, delta: number) => {
@@ -811,11 +815,16 @@ ${orderLines.join("\n")}
               </h2>
             </div>
             <button
-              onClick={() => setIsFullMenuOpen(false)}
-              className="p-2 text-muted-foreground hover:text-primary transition-colors border border-border/40 hover:border-primary rounded-full bg-background"
-              aria-label="Close menu"
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2.5 text-muted-foreground hover:text-primary transition-colors border border-border/40 hover:border-primary rounded-full bg-background"
+              aria-label="Open cart"
             >
-              <X size={20} />
+              <ShoppingBag size={18} />
+              {cartTotalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-background font-sans font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
+                  {cartTotalItems}
+                </span>
+              )}
             </button>
           </header>
 
@@ -912,11 +921,13 @@ ${orderLines.join("\n")}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              addToCart(item);
+                              handleAddToCart(item);
                             }}
-                            className="flex items-center gap-1 bg-primary text-background hover:bg-primary/90 transition-colors duration-300 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-sm cursor-pointer shrink-0 font-bold"
+                            className="flex items-center justify-center bg-primary text-background hover:bg-primary/90 transition-colors duration-300 p-2 rounded-sm cursor-pointer shrink-0"
+                            aria-label={`Add ${item.name} to cart`}
+                            title={`Add ${item.name} to cart`}
                           >
-                            <Plus size={10} /> Add
+                            <Plus size={12} />
                           </button>
                         </div>
                       </div>
@@ -1013,30 +1024,6 @@ ${orderLines.join("\n")}
               Cancel / Close
             </button>
           </div>
-        </div>
-      )}
-
-      {/* ─── FLOATING CART BAR ─── */}
-      {cartTotalItems > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 max-w-md w-[calc(100%-2rem)] bg-card border border-primary/40 rounded-full px-6 py-4 shadow-2xl backdrop-blur-md flex items-center justify-between animate-bounce-subtle">
-          <div className="flex items-center gap-3">
-            <div className="relative bg-primary/20 p-2.5 rounded-full text-primary">
-              <ShoppingBag size={18} />
-              <span className="absolute -top-1 -right-1 bg-primary text-background font-sans font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
-                {cartTotalItems}
-              </span>
-            </div>
-            <div>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-sans">Your Order</p>
-              <p className="font-serif text-foreground text-sm font-semibold">₹{cartTotalPrice}</p>
-            </div>
-          </div>
-          <button
-            onClick={() => setIsCartOpen(true)}
-            className="bg-primary text-background text-[11px] tracking-widest uppercase px-5 py-2.5 rounded-full hover:bg-primary/90 transition-colors font-semibold cursor-pointer"
-          >
-            View Order
-          </button>
         </div>
       )}
 
