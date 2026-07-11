@@ -809,10 +809,20 @@ ${orderLines.join("\n")}
           {/* Modal Header */}
           <header className="border-b border-border py-4 px-6 md:px-12 flex items-center justify-between bg-card">
             <div className="flex items-center gap-3">
-              <Coffee className="text-primary w-5 h-5 animate-pulse" />
-              <h2 className="text-xl md:text-2xl font-serif text-foreground tracking-wide">
-                The Digital Menu
-              </h2>
+              <button
+                onClick={() => setIsFullMenuOpen(false)}
+                className="flex items-center gap-2 text-[11px] tracking-[0.24em] uppercase text-muted-foreground hover:text-primary transition-colors border border-border/40 hover:border-primary rounded-full px-3 py-2 bg-background"
+                aria-label="Go back to main page"
+              >
+                <ArrowDown size={14} className="rotate-90" />
+                Back
+              </button>
+              <div className="flex items-center gap-2">
+                <Coffee className="text-primary w-5 h-5 animate-pulse" />
+                <h2 className="text-xl md:text-2xl font-serif text-foreground tracking-wide">
+                  The Digital Menu
+                </h2>
+              </div>
             </div>
             <button
               onClick={() => setIsCartOpen(true)}
